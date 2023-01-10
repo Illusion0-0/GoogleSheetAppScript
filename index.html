@@ -1,0 +1,357 @@
+<html>
+
+<head>
+    <!-- Include the Google Picker API library -->
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+    <!-- Include the Google Drive API library -->
+    <script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+    <base target="_top">
+    <style>
+        .warning-bar-content {
+            display: none !important;
+        }
+
+        h1 {
+            color: #202020;
+            font-size: 50px;
+            font-weight: thickbold;
+            font-family: Arial;
+        }
+
+        button {
+            height: 30px;
+            width: 150px;
+            font-size: 20px;
+        }
+
+        body {
+            background-color: #FFFAFA;
+        }
+
+        label {
+            height: 30px;
+            width: 150px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        select {
+            margin: 25px;
+            height: 50px;
+            width: 750px;
+            font-size: 20px;
+        }
+    </style>
+    <style>
+        .container {
+            display: flex;
+            /* Align the items vertically to the middle of the parent element */
+            align-items: center;
+            /* Set the height of the parent element */
+            /* Center the items horizontally within the parent element */
+            justify-content: center;
+            height: 150px;
+            /* Set the background image */
+            background-image: url('  https://s4.aconvert.com/convert/p3r68-cdx67/ampzx-mq2rp.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .box {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 20px;
+            background-color: #CEEBEF;
+        }
+
+        .dropdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .label-container {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"],
+        select {
+            height: 30px;
+            width: 400px;
+            font-size: 20px;
+            margin: 25px;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <h1>Daily Progress Report</h1>
+    </div>
+    <div class="box">
+        <div class="dropdown-container">
+            <div class="label-container">
+                <label for="EmpCode">Enter Employee Code:</label>
+                <input type="Text" select id="EmpCode"></select>
+            </div>
+            <div class="label-container">
+                <label for="myDropdown1">Project Name:</label>
+                <div id="myDropdown1"></div>
+                <!-- <option value="1">Project 1</option> -->
+            </div>
+            <div class="label-container">
+                <label for="myDropdown2">Name of Agency</label>
+                <select id="myDropdown2"></select>
+            </div>
+            <div class="label-container">
+                <label for="myDropdown3">Name of Executive</label>
+                <select id="myDropdown3"></select>
+            </div>
+            <div class="label-container">
+                <label for="reporttime">Reporting Time at Site</label>
+                <input type="Text" select id="reporttime"></select>
+            </div>
+            <div class="label-container">
+                <label for="exittime">Exit Time at Site</label>
+                <input type="Text" select id="exittime"></select>
+            </div>
+            <div class="label-container">
+                <label for="checkbox1">Job Constraint</label>
+                <select id="checkbox1">
+                </select>
+            </div>
+            <div class="label-container">
+                <label for="safety">Safety & Quality Issue</label>
+                <input type="Text" select id="safety"></select>
+            </div>
+            <div class="label-container">
+                <label for="checkbox2">Activity</label>
+                <div id="checkbox2"></div>
+            </div>
+            <div class="label-container">
+                <label for="myDropdown4">Name of Associates</label>
+                <select id="myDropdown4"></select>
+            </div>
+            <div class="label-container">
+                <label for="avg">Average Reporting Time</label>
+                <input type="Text" select id="avg"></select>
+            </div>
+            <div class="label-container">
+                <label for="req">Required/Available Manpower</label>
+                <input type="Text" select id="req"></select>
+            </div>
+            <div class="label-container">
+                <label for="pln">Planned Work</label>
+                <input type="Text" select id="pln"></select>
+            </div>
+            <div class="label-container">
+                <label for="act">Actual Work</label>
+                <input type="Text" select id="act"></select>
+            </div>
+            <div class="label-container">
+                <label for="tom">Tomorrow's Work</label>
+                <input type="Text" select id="tom"></select>
+            </div>
+            <div class="label-container">
+                <label for="rem">Remarks</label>
+                <input type="Text" select id="rem"></select>
+            </div>
+            <br>
+            <form>
+                <input type="file" name="myFile" mulitple> &nbsp;&nbsp;
+                <input type="button" id="submitBtn" value="Upload Files">
+            </form>
+            <br>
+            <div class="label-container">
+                <button id="saveButton">Save</button>
+            </div>
+            <br>
+        </div>
+
+</body>
+<script>
+    function createDropdowns(values) {
+        var dropdown1Element = document.getElementById("myDropdown1");
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = "";
+        values.values1.forEach(function (value) {
+            var checkbox = document.createElement("input");
+            var label = document.createElement("label");
+            checkbox.type = "checkbox";
+            label.htmlFor = value[0];
+            checkbox.name = "myDropdown1";
+            label.textContent = value[0];
+            checkbox.value = value[0];
+            checkbox.textContent = value[0];
+            dropdown1Element.appendChild(checkbox);
+            dropdown1Element.appendChild(label);
+            dropdown1Element.appendChild(document.createElement("br"));
+        });
+
+        // Get the element where you want to display the second dropdown
+        var dropdown2Element = document.getElementById("myDropdown2");
+        var option = document.createElement("option");
+        option.value = "";
+        option.text = "";
+        dropdown2Element.add(option);
+        // Iterate over the values2 array and create an option element for each value
+        values.values2.forEach(function (value) {
+            var option = document.createElement("option");
+            option.value = value[0];
+            option.text = value[0];
+            dropdown2Element.add(option);
+        });
+
+        // Get the element where you want to display the second dropdown
+        var dropdown3Element = document.getElementById("myDropdown3");
+        var option = document.createElement("option");
+        option.value = "";
+        option.text = "";
+        dropdown3Element.add(option);
+        // Iterate over the values3 array and create an option element for each value
+        values.values3.forEach(function (value) {
+            var option = document.createElement("option");
+            option.value = value[0];
+            option.text = value[0];
+            dropdown3Element.add(option);
+        });
+
+        // Get the element where you want to display the second dropdown
+        var dropdown4Element = document.getElementById("checkbox1");
+        var option = document.createElement("option");
+        option.value = "";
+        option.text = "";
+        dropdown4Element.add(option);
+        // Iterate over the values4 array and create an option element for each value
+        values.values4.forEach(function (value) {
+            var option = document.createElement("option");
+            option.value = value[0];
+            option.text = value[0];
+            dropdown4Element.add(option);
+        });
+
+        var dropdown4Element = document.getElementById("checkbox2");
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = "";
+        values.values5.forEach(function (value) {
+            var checkbox = document.createElement("input");
+            var label = document.createElement("label");
+            checkbox.type = "checkbox";
+            label.htmlFor = value[0];
+            checkbox.name = "checkbox2";
+            label.textContent = value[0];
+            checkbox.value = value[0];
+            checkbox.textContent = value[0];
+            dropdown4Element.appendChild(checkbox);
+            dropdown4Element.appendChild(label);
+            dropdown4Element.appendChild(document.createElement("br"));
+        });
+
+        var dropdown4Element = document.getElementById("myDropdown4");
+        var option = document.createElement("option");
+        option.value = "";
+        option.text = "";
+        dropdown4Element.add(option);
+        // Iterate over the values6 array and create an option element for each value
+        values.values6.forEach(function (value) {
+            var option = document.createElement("option");
+            option.value = value[0];
+            option.text = value[0];
+            dropdown4Element.add(option);
+        });
+    }
+
+    google.script.run.withSuccessHandler(createDropdowns).getValuesFromSheet();
+    document.getElementById('submitBtn').addEventListener('click',
+        function (e) {
+            google.script.run.withSuccessHandler(onSuccess).uploadFiles(this.parentNode)
+        })
+    var value17;
+    function onSuccess(data) {
+        value17 = data;
+    }
+
+    document.getElementById("saveButton").addEventListener("click", saveValues);
+
+    function getCheckedBoxes(chkboxName) {
+        var checkboxes = document.getElementsByName(chkboxName);
+        var checkboxesChecked = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checkboxesChecked.push(checkboxes[i].value);
+            }
+        }
+        return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+    }
+
+    function saveValues() {
+        // Get the selected values from the dropdown lists
+        var value1 = document.getElementById("EmpCode").value;
+        var value2 = JSON.stringify(getCheckedBoxes("myDropdown1"));
+        var value3 = document.getElementById("myDropdown2").value;
+        var value4 = document.getElementById("myDropdown3").value;
+        var value5 = document.getElementById("reporttime").value;
+        var value6 = document.getElementById("exittime").value;
+        var value7 = document.getElementById("checkbox1").value;
+        var value8 = document.getElementById("safety").value;
+        var value9 = JSON.stringify(getCheckedBoxes("checkbox2"));
+        var value10 = document.getElementById("myDropdown4").value;
+        var value11 = document.getElementById("avg").value;
+        var value12 = document.getElementById("req").value;
+        var value13 = document.getElementById("pln").value;
+        var value14 = document.getElementById("act").value;
+        var value15 = document.getElementById("tom").value;
+        var value16 = document.getElementById("rem").value;
+
+        if (value1 == "" || value2 == "" || value3 == "" || value4 == "" || value5 == "" || value6 == "" || value7 == "" || value8 == "" || value9 == "" || value10 == "" || value11 == "" || value12 == "" || value13 == "" || value14 == "" || value15 == "" || value16 == "" || value17 == "") {
+            var dialog = document.createElement("dialog");
+            var content = document.createElement("div");
+            content.innerHTML = "Please select values in all dropdowns";
+            var button = document.createElement("button");
+            button.innerHTML = "OK";
+            button.addEventListener("click", function () {
+                document.body.removeChild(dialog);
+            });
+            dialog.appendChild(content);
+            dialog.appendChild(button);
+            document.body.appendChild(dialog);
+            dialog.showModal();
+        }
+        else {
+            google.script.run.saveValuesToSheet(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17);
+            var dialog = document.createElement("dialog");
+            var content = document.createElement("div");
+            content.innerHTML = "Values saved!";
+            var button = document.createElement("button");
+            button.innerHTML = "OK";
+            button.addEventListener("click", function () {
+                document.body.removeChild(dialog);
+            });
+            dialog.appendChild(content);
+            dialog.appendChild(button);
+            document.body.appendChild(dialog);
+            dialog.showModal();
+            document.getElementById("myDropdown1").value = "";
+            document.getElementById("myDropdown2").value = "";
+            document.getElementById("myDropdown3").value = "";
+            document.getElementById("myDropdown4").value = "";
+            document.getElementById("EmpCode").value = "";
+            document.getElementById("reporttime").value = "";
+            document.getElementById("exittime").value = "";
+            document.getElementById("checkbox1").value = "";
+            document.getElementById("safety").value = "";
+            document.getElementById("checkbox2").value = "";
+            document.getElementById("avg").value = "";
+            document.getElementById("req").value = "";
+            document.getElementById("pln").value = "";
+            document.getElementById("act").value = "";
+            document.getElementById("tom").value = "";
+            document.getElementById("rem").value = "";
+        }
+    }
+</script>
+</head>
+
+</html>
